@@ -11,17 +11,17 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Andrey-Yanchuk/hexlet-trees.git"
+    "url": "git+https://github.com/Andrey-Yanchuk/hexlet-oop.git"
   },
   "author": "Yanchuk Andrey orpiy@mail.ru",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Andrey-Yanchuk/hexlet-trees/issues"
+    "url": "https://github.com/Andrey-Yanchuk/hexlet-oop/issues"
   },
-  "homepage": "https://github.com/Andrey-Yanchuk/hexlet-trees#readme",
+  "homepage": "https://github.com/Andrey-Yanchuk/hexlet-oop#readme",
   "devDependencies": {
-    "@eslint/js": "^9.18.0",
-    "eslint": "^9.18.0",
+    "@eslint/js": "^9.19.0",
+    "eslint": "^9.19.0",
     "eslint-plugin-import": "^2.31.0",
     "eslint-plugin-jest": "^28.10.0",
     "globals": "^15.14.0",
