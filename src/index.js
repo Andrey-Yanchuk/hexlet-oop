@@ -27,3 +27,47 @@ export const getMutualFriends = (user1, user2) => {
 };
 // console.log(util.inspect(getMutualFriends(user1, user2), { depth: 5, colors: true }));
 /*-----------------------------------------------------*/
+const getGsd = (a, b) => { // НОД
+  while (b !== 0) {
+    const temp = a;
+    a = b;
+    b = temp % b
+  }
+  return Math.abs(a);
+};
+export const make = (numer, denom) => {
+  if (typeof numer !== 'number' || Number.isNaN(numer)) throw new Error("The numerator must be of data type number!");
+  if (typeof denom !== 'number' || Number.isNaN(denom)) throw new Error("The denominator must be of data type number!");
+  if (denom === 0) throw new Error("Denominator cannot be zero!");
+  // Нормализация дроби
+  const gsd = getGsd(numer, denom);
+  return {
+    numer: numer / gsd,
+    denom: denom / gsd,
+    getNumer() {
+      return this.numer;
+    },
+    getDenom() {
+      return this.denom;
+    },
+    // Если написать getNumer() и getDenom(), без ключевого слова this, то они будут восприниматься как обычные функции из глобальной области видимости, а не как методы объекта
+    toString() {
+      return `${this.getNumer()}/${this.getDenom()}`;
+    },
+    add(rational) {
+      // Мой вариант
+      /* const a = this.getNumer();
+      const b = this.getDenom();
+      const c = rational.getNumer();
+      const d = rational.getDenom();
+      return make((a * d + b * c), (b * d)); */
+      // Вариант gpt
+      return make(
+        // Формула сложения: a / b + c / d = (a * d + b * c) / (b * d)
+        this.getNumer() * rational.getDenom() + this.getDenom() * rational.getNumer(),
+        this.getDenom() * rational.getDenom()
+      )
+    },
+  };
+};
+/*-----------------------------------------------------*/
