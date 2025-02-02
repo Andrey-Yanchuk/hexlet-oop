@@ -27,17 +27,20 @@ export const getMutualFriends = (user1, user2) => {
 };
 // console.log(util.inspect(getMutualFriends(user1, user2), { depth: 5, colors: true }));
 /*-----------------------------------------------------*/
-const getGsd = (a, b) => { // НОД
+const getGsd = (a, b) => {
+  // НОД
   while (b !== 0) {
     const temp = a;
     a = b;
-    b = temp % b
+    b = temp % b;
   }
   return Math.abs(a);
 };
 export const make = (numer, denom) => {
-  if (typeof numer !== 'number' || Number.isNaN(numer)) throw new Error("The numerator must be of data type number!");
-  if (typeof denom !== 'number' || Number.isNaN(denom)) throw new Error("The denominator must be of data type number!");
+  if (typeof numer !== "number" || Number.isNaN(numer))
+    throw new Error("The numerator must be of data type number!");
+  if (typeof denom !== "number" || Number.isNaN(denom))
+    throw new Error("The denominator must be of data type number!");
   if (denom === 0) throw new Error("Denominator cannot be zero!");
   // Нормализация дроби
   const gsd = getGsd(numer, denom);
@@ -64,10 +67,22 @@ export const make = (numer, denom) => {
       // Вариант gpt
       return make(
         // Формула сложения: a / b + c / d = (a * d + b * c) / (b * d)
-        this.getNumer() * rational.getDenom() + this.getDenom() * rational.getNumer(),
-        this.getDenom() * rational.getDenom()
-      )
+        this.getNumer() * rational.getDenom() +
+          this.getDenom() * rational.getNumer(),
+        this.getDenom() * rational.getDenom(),
+      );
     },
+  };
+};
+/*-----------------------------------------------------*/
+// Внешняя функция bind — это оболочка она не вызывает fn сразу, а создаёт и возвращает новую функцию, которая "запоминает" переданный объект(obj) и функцию(fn).
+export const bind = (obj, fn) => {
+  if (typeof obj !== "object" || obj === null)
+    throw new Error("First argument must be an object!");
+  if (typeof fn !== "function")
+    throw new Error("Second argument must be a function!");
+  return (...arg) => {
+    return fn.apply(obj, arg);
   };
 };
 /*-----------------------------------------------------*/
