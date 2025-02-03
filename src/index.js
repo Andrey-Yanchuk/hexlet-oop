@@ -75,7 +75,7 @@ export const make = (numer, denom) => {
   };
 };
 /*-----------------------------------------------------*/
-// Внешняя функция bind — это оболочка она не вызывает fn сразу, а создаёт и возвращает новую функцию, которая "запоминает" переданный объект(obj) и функцию(fn).
+// Внешняя функция bind — это оболочка она не вызывает fn сразу, а создаёт и возвращает новую функцию(с ее нужными для передачи аргументами), которая "запоминает" переданный объект(obj) и функцию(fn).
 export const bind = (obj, fn) => {
   if (typeof obj !== "object" || obj === null)
     throw new Error("First argument must be an object!");
@@ -84,5 +84,13 @@ export const bind = (obj, fn) => {
   return (...arg) => {
     return fn.apply(obj, arg);
   };
+};
+/*-----------------------------------------------------*/
+export const each = (objects, callback) => {
+  if (!Array.isArray(objects))
+    throw new Error("First argument must be collection of objects!");
+  if (typeof callback !== "function")
+    throw new Error("Second argument must be a function!");
+  return objects.forEach((obj) => callback.call(obj));
 };
 /*-----------------------------------------------------*/
