@@ -94,3 +94,37 @@ export const each = (objects, callback) => {
   return objects.forEach((obj) => callback.call(obj));
 };
 /*-----------------------------------------------------*/
+export function Point(x, y) {
+  // Метод Number.isFinite() определяет, является ли переданное значение конечным числом.
+  if (!Number.isFinite(x)) throw new Error("x must be a finite number!");
+  if (!Number.isFinite(y)) throw new Error("y must be a finite number!");
+  this.x = x;
+  this.y = y;
+}
+function getBeginPoint() {
+  return this.beginPoint;
+}
+function getEndPoint() {
+  return this.endPoint;
+}
+export function Segment(beginPoint, endPoint) {
+  if (!(beginPoint instanceof Point))
+    throw new Error("beginPoint must be an instance of Point!");
+  if (!(endPoint instanceof Point))
+    throw new Error("endPoint must be an instance of Point!");
+  this.beginPoint = beginPoint;
+  this.endPoint = endPoint;
+  this.getBeginPoint = getBeginPoint;
+  this.getEndPoint = getEndPoint;
+}
+export function reverse(segment) {
+  if (!(segment instanceof Segment))
+    throw new Error("reverse function expects a Segment instance!");
+  const beginPoint = new Point(
+    segment.getBeginPoint().x,
+    segment.getBeginPoint().y,
+  );
+  const endPoint = new Point(segment.getEndPoint().x, segment.getEndPoint().y);
+  return new Segment(endPoint, beginPoint);
+}
+/*-----------------------------------------------------*/
