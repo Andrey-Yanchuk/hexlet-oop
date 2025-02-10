@@ -68,7 +68,7 @@ export const make = (numer, denom) => {
       return make(
         // Формула сложения: a / b + c / d = (a * d + b * c) / (b * d)
         this.getNumer() * rational.getDenom() +
-        this.getDenom() * rational.getNumer(),
+          this.getDenom() * rational.getNumer(),
         this.getDenom() * rational.getDenom(),
       );
     },
@@ -129,11 +129,13 @@ export function reverse(segment) {
 }
 /*-----------------------------------------------------*/
 // Абстракция "Деньги"
-export function Money(value, currency = 'usd') {
+export function Money(value, currency = "usd") {
   if (value < 0) throw new Error("'value' cannot be less than 0!");
-  if (Number.isNaN(value) || !Number.isFinite(value)) throw new Error("'value' must be a finite number!");
-  const supportedCurrencies = ['usd', 'eur', 'rub'];
-  if (!supportedCurrencies.includes(currency)) throw new Error(`Unsupported currency: '${currency}'`);
+  if (Number.isNaN(value) || !Number.isFinite(value))
+    throw new Error("'value' must be a finite number!");
+  const supportedCurrencies = ["usd", "eur", "rub"];
+  if (!supportedCurrencies.includes(currency))
+    throw new Error(`Unsupported currency: '${currency}'`);
   this.value = value;
   this.currency = currency;
 }
@@ -144,30 +146,51 @@ Money.prototype.getCurrency = function () {
   return this.currency;
 };
 Money.prototype.exchangeTo = function (currency) {
-  if (this.getCurrency() === currency) return new Money(this.value, this.currency);
+  if (this.getCurrency() === currency)
+    return new Money(this.value, this.currency);
   const rates = {
     usd: { eur: 0.7, rub: 90 }, // 1 USD = 0.7 EUR, 1 USD = 90 RUB
     eur: { usd: 1.2, rub: 100 }, // 1 EUR = 1.2 USD, 1 EUR = 120 RUB
     rub: { usd: 1 / 90, eur: 1 / 100 }, // 1 RUB = 0.0111 USD, 0.01 EUR
   };
   const rate = rates[this.currency]?.[currency]; // Безопасный доступ
-  if (!rate) throw new Error(`No exchange rate ${this.currency} -> ${currency}`);
+  if (!rate)
+    throw new Error(`No exchange rate ${this.currency} -> ${currency}`);
   return new Money(this.value * rate, currency);
 };
 Money.prototype.add = function (money) {
-  if (!(money instanceof Money)) throw new Error("money must be an instance of Money!");
+  if (!(money instanceof Money))
+    throw new Error("money must be an instance of Money!");
   let convertedMoney = money;
-  if (this.getCurrency() !== money.getCurrency()) convertedMoney = money.exchangeTo(this.getCurrency());
-  return new Money(this.getValue() + convertedMoney.getValue(), this.getCurrency())
+  if (this.getCurrency() !== money.getCurrency())
+    convertedMoney = money.exchangeTo(this.getCurrency());
+  return new Money(
+    this.getValue() + convertedMoney.getValue(),
+    this.getCurrency(),
+  );
 };
 Money.prototype.format = function () {
   const currencyFormats = {
     usd: { locale: "en-US", currency: "USD" },
     eur: { locale: "de-DE", currency: "EUR" },
     rub: { locale: "ru-RU", currency: "RUB" },
-  }
+  };
   const format = currencyFormats[this.currency];
-  if (!format) throw new Error(`Formatting for currency ${this.currency} is not supported`);
-  return this.getValue().toLocaleString(format.locale, { style: "currency", currency: format.currency });
+  if (!format)
+    throw new Error(
+      `Formatting for currency ${this.currency} is not supported`,
+    );
+  return this.getValue().toLocaleString(format.locale, {
+    style: "currency",
+    currency: format.currency,
+  });
 };
+/*-----------------------------------------------------*/
+// Эта функция является каррированием
+export function magic(...args) {
+  const sum = args.reduce((acc, el) => (acc += el), 0);
+  const inner = (...nextArgs) => magic(sum, ...nextArgs);
+  inner.valueOf = () => sum;
+  return inner;
+}
 /*-----------------------------------------------------*/
