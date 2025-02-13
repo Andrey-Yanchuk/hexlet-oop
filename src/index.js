@@ -68,7 +68,7 @@ export const make = (numer, denom) => {
       return make(
         // Формула сложения: a / b + c / d = (a * d + b * c) / (b * d)
         this.getNumer() * rational.getDenom() +
-        this.getDenom() * rational.getNumer(),
+          this.getDenom() * rational.getNumer(),
         this.getDenom() * rational.getDenom(),
       );
     },
@@ -103,10 +103,10 @@ export function Point(x, y) {
 }
 Segment.prototype.getBeginPoint = function getBeginPoint() {
   return this.beginPoint;
-}
+};
 Segment.prototype.getEndPoint = function getEndPoint() {
   return this.endPoint;
-}
+};
 export function Segment(beginPoint, endPoint) {
   if (!(beginPoint instanceof Point))
     throw new Error("beginPoint must be an instance of Point!");
@@ -128,10 +128,10 @@ export function reverse(segment) {
 /*-----------------------------------------------------*/
 Point.prototype.toString = function toString() {
   return `(${this.x}, ${this.y})`;
-}
+};
 Segment.prototype.toString = function toString() {
   return `[${this.beginPoint.toString()}, ${this.endPoint.toString()}]`;
-}
+};
 /*-----------------------------------------------------*/
 // Абстракция "Деньги"
 export function Money(value, currency = "usd") {

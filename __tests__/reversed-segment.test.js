@@ -28,13 +28,23 @@ describe("Testing the constructor-function Point", () => {
       expect(new Point(11, -3).toString()).toBe("(11, -3)");
     });
     test("with empty values", () => {
-      expect(() => new Point().toString()).toThrow("x must be a finite number!");
-      expect(() => new Point(1).toString()).toThrow("y must be a finite number!");
+      expect(() => new Point().toString()).toThrow(
+        "x must be a finite number!",
+      );
+      expect(() => new Point(1).toString()).toThrow(
+        "y must be a finite number!",
+      );
     });
     test("with invalid values", () => {
-      expect(() => new Point("123", null).toString()).toThrow("x must be a finite number!");
-      expect(() => new Point(123, null).toString()).toThrow("y must be a finite number!");
-      expect(() => new Point(NaN, null).toString()).toThrow("x must be a finite number!");
+      expect(() => new Point("123", null).toString()).toThrow(
+        "x must be a finite number!",
+      );
+      expect(() => new Point(123, null).toString()).toThrow(
+        "y must be a finite number!",
+      );
+      expect(() => new Point(NaN, null).toString()).toThrow(
+        "x must be a finite number!",
+      );
     });
     test("with zero values", () => {
       expect(new Point(0, 0).toString()).toBe("(0, 0)");
@@ -72,10 +82,14 @@ describe("Testing the constructor-function Segment", () => {
   });
   describe("Testing Segment.prototype.toString", () => {
     test("with correctly values", () => {
-      expect(new Segment(new Point(1, 10), new Point(11, 3)).toString()).toBe("[(1, 10), (11, 3)]");
+      expect(new Segment(new Point(1, 10), new Point(11, 3)).toString()).toBe(
+        "[(1, 10), (11, 3)]",
+      );
     });
     test("with negative values", () => {
-      expect(new Segment(new Point(-1, -10), new Point(-11, -3)).toString()).toBe("[(-1, -10), (-11, -3)]");
+      expect(
+        new Segment(new Point(-1, -10), new Point(-11, -3)).toString(),
+      ).toBe("[(-1, -10), (-11, -3)]");
     });
     test("with empty arguments", () => {
       expect(() => new Segment().toString()).toThrow(
