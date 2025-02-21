@@ -1,5 +1,6 @@
 // src/index.js
 // import util from "util"; // Для отображения уровня вложенности
+import { ParseError } from "./ParseError.js";
 /*-----------------------------------------------------*/
 export const makeUser = ({ id = undefined, friends = [] } = {}) => {
   // деструктуризация объекта с значениями по умолчанию, то есть если в объекте не будут переадны, аргументы id и friends, то они будут использоваться по умолчанию
@@ -197,5 +198,14 @@ export function magic(...args) {
   const inner = (...nextArgs) => magic(sum, ...nextArgs);
   inner.valueOf = () => sum;
   return inner;
+}
+/*-----------------------------------------------------*/
+export function parseJson(json) {
+  if (typeof json !== "string") throw new ParseError("Invalid JSON string");
+  try {
+    return JSON.parse(json);
+  } catch {
+    throw new ParseError("Invalid JSON string");
+  }
 }
 /*-----------------------------------------------------*/
